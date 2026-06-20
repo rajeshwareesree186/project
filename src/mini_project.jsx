@@ -253,115 +253,46 @@ export default function App() {
           <h2 style={S.secH2}>Every pin is a<br /><em style={S.secEm}>world unto itself.</em></h2>
         </div>
         <div style={S.mapLayout}>
-          {/* SVG India Map with pins */}
-          <div style={{ ...S.mapWrap, background: "#0e1a2b" }}>
-            <svg viewBox="0 0 500 580" style={{ width:"100%", display:"block" }} xmlns="http://www.w3.org/2000/svg">
-              {/* Ocean background */}
-              <rect width="500" height="580" fill="#0e1a2b"/>
-              {/* India outline - simplified but recognizable shape */}
-              <path d="
-                M 185 30 L 200 28 L 220 32 L 245 30 L 265 35 L 290 38 L 310 42 L 330 50
-                L 345 62 L 355 75 L 360 90 L 358 105 L 350 118 L 340 130 L 332 145
-                L 338 158 L 348 168 L 355 182 L 352 198 L 345 210 L 335 222 L 328 238
-                L 322 252 L 318 268 L 312 282 L 305 295 L 298 308 L 290 320 L 282 332
-                L 275 345 L 268 358 L 260 370 L 252 382 L 244 393 L 236 403 L 228 412
-                L 220 420 L 214 430 L 210 440 L 208 450 L 206 460 L 204 470 L 202 480
-                L 200 490 L 198 498 L 196 488 L 193 478 L 190 468 L 188 458 L 186 448
-                L 184 438 L 182 428 L 180 418 L 176 408 L 170 398 L 163 388 L 155 378
-                L 148 368 L 142 358 L 136 348 L 130 338 L 122 328 L 115 318 L 108 307
-                L 102 296 L 97 285 L 93 274 L 90 263 L 88 252 L 86 241 L 84 230
-                L 82 219 L 80 208 L 78 196 L 77 184 L 76 172 L 75 160 L 76 148
-                L 78 136 L 82 125 L 88 115 L 95 106 L 104 98 L 114 91 L 124 85
-                L 134 80 L 144 75 L 154 70 L 163 65 L 172 58 L 180 50 L 185 40 Z
-              " fill="#1a3a1a" stroke="#2d6a2d" strokeWidth="1.5" opacity="0.9"/>
-              {/* Kashmir/North region */}
-              <path d="M 185 30 L 200 28 L 220 32 L 245 30 L 265 35 L 275 28 L 260 18 L 240 12 L 220 10 L 200 15 L 188 22 Z" fill="#1d3d2a" stroke="#2d6a2d" strokeWidth="1"/>
-              {/* Northeast region */}
-              <path d="M 330 50 L 345 45 L 365 48 L 380 55 L 390 68 L 385 80 L 370 85 L 355 82 L 345 75 L 338 65 Z" fill="#1a3a1a" stroke="#2d6a2d" strokeWidth="1"/>
-              {/* Sri Lanka hint */}
-              <ellipse cx="218" cy="515" rx="12" ry="18" fill="#152a15" stroke="#2d6a2d" strokeWidth="1" opacity="0.6"/>
-              {/* Andaman hint */}
-              <ellipse cx="390" cy="400" rx="6" ry="20" fill="#152a15" stroke="#2d6a2d" strokeWidth="1" opacity="0.5"/>
+          {/* Real India map image (SimpleMaps.com — free for commercial/personal
+              use, accurate Mercator-projected geography with real state
+              borders). Pins are positioned with % top/left so they land
+              correctly regardless of the image's internal SVG coordinate
+              system — same approach as mapPin/pin fields in the data above. */}
+          <div style={{ ...S.mapWrap, background: "#0e1a2b", position: "relative" }}>
+            <img
+              src="https://simplemaps.com/static/svg/country/in/admin1/in.svg"
+              alt="Map of India with state borders"
+              style={{
+                width: "100%",
+                display: "block",
+                filter: "invert(1) brightness(0.8) sepia(1) saturate(2.2) hue-rotate(60deg) contrast(0.95)",
+                opacity: 0.92,
+              }}
+            />
 
-              {/* Grid lines subtle */}
-              <line x1="0" y1="200" x2="500" y2="200" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
-              <line x1="0" y1="350" x2="500" y2="350" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
-              <line x1="180" y1="0" x2="180" y2="580" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
-              <line x1="280" y1="0" x2="280" y2="580" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
+            {/* Taj Mahal special pin (Agra, ~27.2°N 78.0°E) */}
+            <div style={{ position:"absolute", top:"27%", left:"45%", transform:"translate(-50%,-100%)", zIndex:5, textAlign:"center" }}>
+              <div style={{ width:30, height:30, borderRadius:"50% 50% 50% 0", background:"#F5C842", border:"2px solid #fff", transform:"rotate(-45deg)", display:"flex", alignItems:"center", justifyContent:"center", boxShadow:"0 2px 10px rgba(0,0,0,0.5)", margin:"0 auto" }}>
+                <span style={{ transform:"rotate(45deg)", fontSize:"0.7rem" }}>🕌</span>
+              </div>
+              <div style={{ background:"rgba(8,8,6,0.88)", border:"1px solid #F5C842", padding:"0.2rem 0.5rem", marginTop:"0.3rem", whiteSpace:"nowrap" }}>
+                <div style={{ fontFamily:"'Inter',sans-serif", fontSize:"0.6rem", fontWeight:700, color:"#F5C842", letterSpacing:"0.05em" }}>TAJ MAHAL</div>
+                <div style={{ fontFamily:"'Inter',sans-serif", fontSize:"0.5rem", color:"rgba(245,240,232,0.5)" }}>Agra, UP</div>
+              </div>
+            </div>
 
-              {/* ── TAJ MAHAL SPECIAL PIN (Agra) ── */}
-              {/* Glow rings */}
-              <circle cx="218" cy="148" r="22" fill="none" stroke="#F5C842" strokeWidth="1" opacity="0.15"/>
-              <circle cx="218" cy="148" r="14" fill="none" stroke="#F5C842" strokeWidth="1" opacity="0.3"/>
-              {/* Pin body */}
-              <path d="M218 120 C210 120 204 126 204 134 C204 144 218 160 218 160 C218 160 232 144 232 134 C232 126 226 120 218 120Z" fill="#F5C842" stroke="#fff" strokeWidth="1.5"/>
-              <circle cx="218" cy="134" r="5" fill="#080806"/>
-              {/* Taj Mahal mini icon inside pin */}
-              <text x="218" y="137" textAnchor="middle" fontSize="5" fill="#080806">🕌</text>
-              {/* Label */}
-              <rect x="196" y="162" width="44" height="14" rx="2" fill="rgba(8,8,6,0.85)" stroke="#F5C842" strokeWidth="0.8"/>
-              <text x="218" y="172" textAnchor="middle" fontFamily="Inter,sans-serif" fontSize="6.5" fill="#F5C842" fontWeight="bold">TAJ MAHAL</text>
-              <text x="218" y="180" textAnchor="middle" fontFamily="Inter,sans-serif" fontSize="5" fill="rgba(245,240,232,0.5)">Agra, UP</text>
-
-              {/* ── STATE PINS (TN, AP, KL) ── */}
-              {/* Tamil Nadu */}
-              <circle cx="210" cy="430" r="8" fill="#D97706" opacity="0.25"/>
-              <circle cx="210" cy="430" r="5" fill="#D97706" stroke="#fff" strokeWidth="1.2"/>
-              <text x="222" y="434" fontFamily="Inter,sans-serif" fontSize="7" fill="#D97706" fontWeight="bold">TN</text>
-              {/* Andhra Pradesh */}
-              <circle cx="232" cy="395" r="8" fill="#059669" opacity="0.25"/>
-              <circle cx="232" cy="395" r="5" fill="#059669" stroke="#fff" strokeWidth="1.2"/>
-              <text x="244" y="399" fontFamily="Inter,sans-serif" fontSize="7" fill="#059669" fontWeight="bold">AP</text>
-              {/* Kerala */}
-              <circle cx="193" cy="448" r="8" fill="#16A34A" opacity="0.25"/>
-              <circle cx="193" cy="448" r="5" fill="#16A34A" stroke="#fff" strokeWidth="1.2"/>
-              <text x="170" y="452" fontFamily="Inter,sans-serif" fontSize="7" fill="#16A34A" fontWeight="bold">KL</text>
-
-              {/* ── OTHER DESTINATION PINS ── */}
-              {/* Rajasthan */}
-              <circle cx="152" cy="198" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="152" cy="198" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="158" y="202" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Rajasthan</text>
-              {/* Varanasi */}
-              <circle cx="258" cy="218" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="258" cy="218" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="264" y="222" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Varanasi</text>
-              {/* Ladakh */}
-              <circle cx="198" cy="80" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="198" cy="80" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="204" y="84" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Ladakh</text>
-              {/* Goa */}
-              <circle cx="170" cy="358" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="170" cy="358" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="152" y="362" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Goa</text>
-              {/* Hampi */}
-              <circle cx="192" cy="385" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="192" cy="385" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="154" y="389" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Hampi</text>
-              {/* Darjeeling */}
-              <circle cx="308" cy="175" r="6" fill="#F5C842" opacity="0.3"/>
-              <circle cx="308" cy="175" r="4" fill="#F5C842" stroke="#fff" strokeWidth="1"/>
-              <text x="314" y="179" fontFamily="Inter,sans-serif" fontSize="6" fill="#F5C842">Darjeeling</text>
-
-              {/* Compass rose */}
-              <g transform="translate(440,50)">
-                <circle cx="0" cy="0" r="16" fill="rgba(8,8,6,0.7)" stroke="rgba(245,240,232,0.15)" strokeWidth="1"/>
-                <text x="0" y="-8" textAnchor="middle" fontSize="7" fill="rgba(245,240,232,0.5)" fontFamily="Inter,sans-serif">N</text>
-                <text x="0" y="13" textAnchor="middle" fontSize="6" fill="rgba(245,240,232,0.3)" fontFamily="Inter,sans-serif">S</text>
-                <text x="-11" y="3" textAnchor="middle" fontSize="6" fill="rgba(245,240,232,0.3)" fontFamily="Inter,sans-serif">W</text>
-                <text x="11" y="3" textAnchor="middle" fontSize="6" fill="rgba(245,240,232,0.3)" fontFamily="Inter,sans-serif">E</text>
-                <line x1="0" y1="-5" x2="0" y2="5" stroke="rgba(245,240,232,0.4)" strokeWidth="1"/>
-                <line x1="-5" y1="0" x2="5" y2="0" stroke="rgba(245,240,232,0.4)" strokeWidth="1"/>
-              </g>
-
-              {/* India label */}
-              <text x="200" y="295" textAnchor="middle" fontFamily="Playfair Display,serif" fontSize="13" fill="rgba(245,240,232,0.08)" fontWeight="900" letterSpacing="4">INDIA</text>
-            </svg>
+            {/* State + destination pins, reusing pinWrap/pinDot/pinRing helpers */}
+            {allMapPins.map(p => (
+              <div key={p.key} style={S.pinWrap(p.pin)}>
+                <div style={S.pinRing(p.color)} />
+                <div style={S.pinDot(p.color)} />
+              </div>
+            ))}
           </div>
+
           {/* Sidebar */}
           <div style={S.sidebar}>
             <div style={{ fontFamily:"'Inter',sans-serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(245,240,232,0.25)", marginBottom:"0.75rem", paddingLeft:"0.25rem" }}>All Pinned Locations</div>
-
             {/* Taj Mahal special entry */}
             <div style={{ background:"#1a1608", border:"1px solid #F5C842", padding:"0.9rem 1.1rem", display:"flex", alignItems:"center", gap:"0.75rem" }}>
               <div style={{ width:9, height:9, borderRadius:"50%", background:"#F5C842", flexShrink:0, boxShadow:"0 0 6px #F5C842" }} />
@@ -371,7 +302,6 @@ export default function App() {
               </div>
               <div style={{ fontFamily:"'Inter',sans-serif", fontSize:"0.58rem", background:"#F5C842", color:"#080806", padding:"0.15rem 0.4rem", fontWeight:700 }}>FEATURED</div>
             </div>
-
             {allMapPins.map(p => (
               <div
                 key={p.key}
@@ -403,7 +333,6 @@ export default function App() {
             </button>
           ))}
         </div>
-
         {/* State BG Hero */}
         <div style={S.stHero}>
           <div style={S.stBg(sd.bg)} />
@@ -417,7 +346,6 @@ export default function App() {
             <div style={S.stSub}>{sd.tagline}</div>
           </div>
         </div>
-
         {/* Places */}
         <div style={S.placesSec}>
           <div style={S.placesGrid}>
